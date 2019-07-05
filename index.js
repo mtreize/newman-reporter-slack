@@ -10,6 +10,8 @@ class SlackReporter {
         const backticks = '```';
         const webhookUrl = process.env.SLACK_WEBHOOK_URL || reporterOptions.webhookUrl;
         const channel = process.env.SLACK_CHANNEL || reporterOptions.channel;
+        const username = process.env.SLACK_USERNAME || reporterOptions.channel || "postman";
+        const username = process.env.SLACK_ICON || reporterOptions.icon || ":postbox:";
         let title = process.env.TITLE || reporterOptions.title;
         let header = process.env.HEADER || reporterOptions.header || '';
 
@@ -49,6 +51,7 @@ class SlackReporter {
             let table = markdowntable(data);
             let text = `${title}\n${backticks}${table}${backticks}`
             let msg = {
+                username: username,
                 channel: channel,
                 text: text
             }
